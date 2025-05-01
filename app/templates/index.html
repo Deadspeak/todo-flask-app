@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Moja lista zadań</title>
+  </head>
+  <body>
+    <h1>Witaj w aplikacji TODO!</h1>
+    
+    <form action="{{ url_for('main.add_task') }}" method="POST">
+        <input type="text" name="task" placeholder="Wpisz zadanie" required>
+        <button type="submit">Dodaj zadanie</button>
+    </form>
+    
+    <h2>Twoje zadania:</h2>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.task }}  <!-- Zmieniono z task.description na task.task -->
+                <form action="{{ url_for('main.delete_task', id=task.id) }}" method="POST" style="display:inline;">
+                    <button type="submit">Usuń</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+  </body>
+</html>
