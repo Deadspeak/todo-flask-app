@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 db = SQLAlchemy()  # Tworzymy obiekt db
 
@@ -8,7 +9,7 @@ def create_app():
 
     # Konfiguracja bazy danych
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/tasks.db'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://@todo-flask-server.database.windows.net:1433/tasksdb?driver=ODBC+Driver+17+for+SQL+Server&authentication=ActiveDirectoryMsi'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite') #connection to database
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)  # Inicjalizujemy db z aplikacją
